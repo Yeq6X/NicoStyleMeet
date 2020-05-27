@@ -1,0 +1,6 @@
+.comment {
+  position: absolute;
+  color: #fff;
+  white-space: nowrap;
+  z-index: 2147483647;
+}
