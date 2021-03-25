@@ -1,6 +1,9 @@
 var prevThread;
 
-function showComment(message) {
+function showComment(message, userName) {
+  if (userName === undefined || userName === null) {
+    userName = ''
+  }
   var screen = document.body; // よくない
   var screenHeight = screen.offsetHeight;
   var screenWidth = screen.offsetWidth;
@@ -9,7 +12,7 @@ function showComment(message) {
   var comment = document.createElement('span');
 
   // コメントへのメッセージの追加
-  comment.textContent = message;
+  comment.textContent = `${userName}: ${message}`;
   // コメントのbodyへの追加
   document.getElementsByTagName('body')[0].appendChild(comment);
 
@@ -58,8 +61,13 @@ try {
   const messages = thread.getElementsByClassName('oIy2qc');
   // 最後のメッセージを取得
   const message = messages[messages.length-1].innerText;
+  // 発言者取得
+  const userNames = thread.getElementsByClassName('YTbUzc');
+  // 最後の発言者取得
+  const userName = thread.getElementsByClassName('YTbUzc')[userNames.length-1].innerText;
 
-  showComment(message)
+
+  showComment(message, userName)
 }
 catch(e) {
   return;
