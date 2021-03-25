@@ -1,20 +1,6 @@
 var prevThread;
 
-var observer = new MutationObserver(records=>{
-try {
-  // テキスト欄の取得
-  const thread = document.getElementsByClassName('z38b6 CnDs7d hPqowe')[0];
-  // テキスト欄以外のDOM変化で発火したら無視
-  if (prevThread != undefined && thread.isEqualNode(prevThread)) return;
-  // ????
-  if (thread.getElementsByClassName('gYckH').length == 1) return;
-  // 比較用にグローバルに格納
-  prevThread = thread.cloneNode(true);
-  // メッセージそれぞれを配列として取得
-  const messages = thread.getElementsByClassName('oIy2qc');
-  // 最後のメッセージを取得
-  const message = messages[messages.length-1].innerText;
-
+function showComment(message) {
   var screen = document.body; // よくない
   var screenHeight = screen.offsetHeight;
   var screenWidth = screen.offsetWidth;
@@ -54,7 +40,26 @@ try {
       'complete': function() {
         document.getElementsByTagName('body')[0].removeChild(comment);
       }
-    });
+    }
+  );
+}
+
+var observer = new MutationObserver(records=>{
+try {
+  // テキスト欄の取得
+  const thread = document.getElementsByClassName('z38b6 CnDs7d hPqowe')[0];
+  // テキスト欄以外のDOM変化で発火したら無視
+  if (prevThread != undefined && thread.isEqualNode(prevThread)) return;
+  // ????
+  if (thread.getElementsByClassName('gYckH').length == 1) return;
+  // 比較用にグローバルに格納
+  prevThread = thread.cloneNode(true);
+  // メッセージそれぞれを配列として取得
+  const messages = thread.getElementsByClassName('oIy2qc');
+  // 最後のメッセージを取得
+  const message = messages[messages.length-1].innerText;
+
+  showComment(message)
 }
 catch(e) {
   return;
